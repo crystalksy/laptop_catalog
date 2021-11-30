@@ -25,6 +25,8 @@ var (
 	DB *gorm.DB
 )
 
+//nangkap isinya
+//ngambil database
 func initMigration() {
 	DB.AutoMigrate(&models.Admins{},
 		&models.Descs{},
