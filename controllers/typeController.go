@@ -1,6 +1,5 @@
 package controllers
 
-//import packages
 import (
 	"laptop_catalog/database"
 	"laptop_catalog/models"
@@ -10,7 +9,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//func memanggil seluruh data admin
 func GetTypes(c echo.Context) error {
 	var types []models.Types
 
@@ -23,11 +21,9 @@ func GetTypes(c echo.Context) error {
 	})
 }
 
-//Fungsi get admin by ID
 func GetTypeByID(c echo.Context) error {
 	var types models.Types
 	id, _ := strconv.Atoi(c.Param("id"))
-	//config.DB.Where("id = ?", id).Delete(&admin)
 
 	if err := database.DB.Where("id= ?", id).Find(&types).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -38,7 +34,6 @@ func GetTypeByID(c echo.Context) error {
 	})
 }
 
-//fungsi create new admins
 func CreateType(e echo.Context) error {
 	types := models.Types{}
 	e.Bind(&types)
@@ -52,7 +47,6 @@ func CreateType(e echo.Context) error {
 	})
 }
 
-//Fungsi Update Tabel Merk HP
 func UpdateTypeByID(e echo.Context) error {
 	types := models.Types{}
 	id, _ := strconv.Atoi(e.Param("id"))
@@ -68,7 +62,6 @@ func UpdateTypeByID(e echo.Context) error {
 	})
 }
 
-//Fungsi hapus data merk
 func DeleteTypeByID(e echo.Context) error {
 	var types models.Types
 	id, _ := strconv.Atoi(e.Param("id"))

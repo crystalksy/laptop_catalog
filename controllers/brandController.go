@@ -1,6 +1,5 @@
 package controllers
 
-//import packages
 import (
 	"laptop_catalog/database"
 	"laptop_catalog/models"
@@ -10,71 +9,66 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//func memanggil seluruh data admin
-func GetMerks(c echo.Context) error {
-	var merks []models.Merks
+func GetBrands(c echo.Context) error {
+	var brands []models.Brands
 
-	if err := database.DB.Find(&merks).Error; err != nil {
+	if err := database.DB.Find(&brands).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Berhasil Menampilkan Semua Merk Laptop",
-		"merks":   merks,
+		"brands":  brands,
 	})
 }
 
-//Fungsi get admin by ID
-func GetMerkByID(c echo.Context) error {
-	var merk models.Merks
+func GetBrandByID(c echo.Context) error {
+	var brand models.Brands
 	id, _ := strconv.Atoi(c.Param("id"))
-	//config.DB.Where("id = ?", id).Delete(&admin)
 
-	if err := database.DB.Where("id= ?", id).Find(&merk).Error; err != nil {
+	if err := database.DB.Where("id= ?", id).Find(&brand).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Berhasil Menampilkan Merk Laptop ",
-		"merk":    merk,
+		"brand":   brand,
 	})
 }
 
-//fungsi create new admins
-func CreateMerk(e echo.Context) error {
-	merk := models.Merks{}
-	e.Bind(&merk)
+func CreateBrand(e echo.Context) error {
+	brand := models.Brands{}
+	e.Bind(&brand)
 
-	if err := database.DB.Save(&merk).Error; err != nil {
+	if err := database.DB.Save(&brand).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Berhasil Menambahkan Merk Laptop",
-		"merk":    merk,
+		"brand":   brand,
 	})
 }
 
-//Fungsi Update Tabel Merk HP
-func UpdateMerkByID(e echo.Context) error {
-	merk := models.Merks{}
+func UpdateBrandByID(e echo.Context) error {
+	brand := models.Brands{}
 	id, _ := strconv.Atoi(e.Param("id"))
-	e.Bind(&merk)
-	merk.ID = id
+	e.Bind(&brand)
+	brand.ID = id
 
-	if err := database.DB.Where("id= ?", merk.ID).Updates(&merk).Error; err != nil {
+	if err := database.DB.Where("id= ?", brand.ID).Updates(&brand).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Berhasil Mengubah Data Merk Laptop",
-		"merk":    merk,
+		"brand":   brand,
 	})
 }
 
 //Fungsi hapus data merk
-func DeleteMerkByID(e echo.Context) error {
-	var merk models.Merks
+func DeleteBrandByID(e echo.Context) error {
+	var brand models.Brands
 	id, _ := strconv.Atoi(e.Param("id"))
-	database.DB.Where("id = ?", id).Delete(&merk)
+	database.DB.Where("id = ?", id).Delete(&brand)
 	return e.JSON(http.StatusOK, map[string]interface{}{
-		"merk":    merk,
+		"brand":   brand,
 		"message": "Data Merk Laptop Berhasil Dihapus",
 	})
 }

@@ -1,6 +1,5 @@
 package controllers
 
-//import packages
 import (
 	"laptop_catalog/database"
 	"laptop_catalog/models"
@@ -10,7 +9,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//func memanggil seluruh data audio
 func GetMemories(c echo.Context) error {
 	var memory []models.Memories
 
@@ -23,11 +21,9 @@ func GetMemories(c echo.Context) error {
 	})
 }
 
-//Fungsi get audio by ID
 func GetMemoryByID(c echo.Context) error {
 	var memory models.Memories
 	id, _ := strconv.Atoi(c.Param("id"))
-	//config.DB.Where("id = ?", id).Delete(&admin)
 
 	if err := database.DB.Where("id= ?", id).Find(&memory).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -38,7 +34,6 @@ func GetMemoryByID(c echo.Context) error {
 	})
 }
 
-//fungsi create new audio
 func CreateMemory(e echo.Context) error {
 	memory := models.Memories{}
 	e.Bind(&memory)
@@ -52,10 +47,11 @@ func CreateMemory(e echo.Context) error {
 	})
 }
 
-//Fungsi Update Tabel Audio
 func UpdateMemoryByID(e echo.Context) error {
 	memory := models.Memories{}
+	id, _ := strconv.Atoi(e.Param("id"))
 	e.Bind(&memory)
+	memory.ID = id
 
 	if err := database.DB.Where("id= ?", memory.ID).Updates(&memory).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -66,7 +62,6 @@ func UpdateMemoryByID(e echo.Context) error {
 	})
 }
 
-//Fungsi hapus data audio
 func DeleteMemoryByID(e echo.Context) error {
 	var memory models.Memories
 	id, _ := strconv.Atoi(e.Param("id"))

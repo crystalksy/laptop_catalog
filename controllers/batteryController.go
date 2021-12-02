@@ -1,6 +1,5 @@
 package controllers
 
-//import packages
 import (
 	"laptop_catalog/database"
 	"laptop_catalog/models"
@@ -10,10 +9,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//func memanggil seluruh data admin
 func GetBatteries(c echo.Context) error {
 	var battery []models.Batteries
-
 	if err := database.DB.Find(&battery).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
@@ -23,12 +20,9 @@ func GetBatteries(c echo.Context) error {
 	})
 }
 
-//Fungsi get admin by ID
 func GetBatteryByID(c echo.Context) error {
 	var battery models.Batteries
 	id, _ := strconv.Atoi(c.Param("id"))
-	//config.DB.Where("id = ?", id).Delete(&admin)
-
 	if err := database.DB.Where("id= ?", id).Find(&battery).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
@@ -38,11 +32,9 @@ func GetBatteryByID(c echo.Context) error {
 	})
 }
 
-//fungsi create new admins
 func CreateBattery(e echo.Context) error {
 	battery := models.Batteries{}
 	e.Bind(&battery)
-
 	if err := database.DB.Save(&battery).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
@@ -52,7 +44,6 @@ func CreateBattery(e echo.Context) error {
 	})
 }
 
-//Fungsi Update Tabel Merk HP
 func UpdateBatteryByID(e echo.Context) error {
 	battery := models.Batteries{}
 	id, _ := strconv.Atoi(e.Param("id"))
@@ -68,7 +59,6 @@ func UpdateBatteryByID(e echo.Context) error {
 	})
 }
 
-//Fungsi hapus data merk
 func DeleteBatteryByID(e echo.Context) error {
 	var battery models.Batteries
 	id, _ := strconv.Atoi(e.Param("id"))

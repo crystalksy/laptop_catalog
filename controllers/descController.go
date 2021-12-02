@@ -1,6 +1,5 @@
 package controllers
 
-//import packages
 import (
 	"laptop_catalog/database"
 	"laptop_catalog/models"
@@ -10,7 +9,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//func memanggil seluruh data deskripsi smartphone
 func GetDescs(c echo.Context) error {
 	var desc []models.Descs
 
@@ -23,11 +21,9 @@ func GetDescs(c echo.Context) error {
 	})
 }
 
-//Fungsi get deskripsi by ID
 func GetDescByID(c echo.Context) error {
 	var desc models.Descs
 	id, _ := strconv.Atoi(c.Param("id"))
-	//config.DB.Where("id = ?", id).Delete(&admin)
 
 	if err := database.DB.Where("id= ?", id).Find(&desc).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -38,7 +34,6 @@ func GetDescByID(c echo.Context) error {
 	})
 }
 
-//fungsi create new deskripsi
 func CreateDesc(e echo.Context) error {
 	desc := models.Descs{}
 	e.Bind(&desc)
@@ -52,7 +47,6 @@ func CreateDesc(e echo.Context) error {
 	})
 }
 
-//Fungsi Update Tabel Deskripsi
 func UpdateDescByID(e echo.Context) error {
 	desc := models.Descs{}
 	id, _ := strconv.Atoi(e.Param("id"))
@@ -68,7 +62,6 @@ func UpdateDescByID(e echo.Context) error {
 	})
 }
 
-//Fungsi hapus data deskripsi
 func DeleteDescByID(e echo.Context) error {
 	var desc models.Descs
 	id, _ := strconv.Atoi(e.Param("id"))

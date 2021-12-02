@@ -1,6 +1,5 @@
 package controllers
 
-//import packages
 import (
 	"laptop_catalog/database"
 	"laptop_catalog/models"
@@ -10,7 +9,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//func memanggil seluruh data feature
 func GetFeatures(c echo.Context) error {
 	var feature []models.Features
 
@@ -23,11 +21,9 @@ func GetFeatures(c echo.Context) error {
 	})
 }
 
-//Fungsi get feature by ID
 func GetFeatureByID(c echo.Context) error {
 	var feature models.Features
 	id, _ := strconv.Atoi(c.Param("id"))
-	//config.DB.Where("id = ?", id).Delete(&admin)
 
 	if err := database.DB.Where("id= ?", id).Find(&feature).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -38,7 +34,6 @@ func GetFeatureByID(c echo.Context) error {
 	})
 }
 
-//fungsi create new feature
 func CreateFeature(e echo.Context) error {
 	feature := models.Features{}
 	e.Bind(&feature)
@@ -52,7 +47,6 @@ func CreateFeature(e echo.Context) error {
 	})
 }
 
-//Fungsi Update Tabel Feature
 func UpdateFeatureByID(e echo.Context) error {
 	feature := models.Features{}
 	id, _ := strconv.Atoi(e.Param("id"))
@@ -68,7 +62,6 @@ func UpdateFeatureByID(e echo.Context) error {
 	})
 }
 
-//Fungsi hapus Features data
 func DeleteFeatureByID(e echo.Context) error {
 	var feature models.Features
 	id, _ := strconv.Atoi(e.Param("id"))

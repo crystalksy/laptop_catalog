@@ -8,9 +8,11 @@ import (
 )
 
 func BasicAuthDB(adminname, password string, c echo.Context) (bool, error) {
+
 	var admin models.Admins
 
 	err := database.DB.Where("email = ? AND password = ?", adminname, password).First(&admin).Error
+
 	if err != nil {
 		return false, err
 	}

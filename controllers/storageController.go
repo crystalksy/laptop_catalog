@@ -1,6 +1,5 @@
 package controllers
 
-//import packages
 import (
 	"laptop_catalog/database"
 	"laptop_catalog/models"
@@ -10,7 +9,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//func memanggil seluruh data audio
 func GetStorages(c echo.Context) error {
 	var storage []models.Storages
 
@@ -23,11 +21,9 @@ func GetStorages(c echo.Context) error {
 	})
 }
 
-//Fungsi get audio by ID
 func GetStorageByID(c echo.Context) error {
 	var storage models.Storages
 	id, _ := strconv.Atoi(c.Param("id"))
-	//config.DB.Where("id = ?", id).Delete(&admin)
 
 	if err := database.DB.Where("id= ?", id).Find(&storage).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -38,7 +34,6 @@ func GetStorageByID(c echo.Context) error {
 	})
 }
 
-//fungsi create new audio
 func CreateStorage(e echo.Context) error {
 	storage := models.Storages{}
 	e.Bind(&storage)
@@ -52,7 +47,6 @@ func CreateStorage(e echo.Context) error {
 	})
 }
 
-//Fungsi Update Tabel Audio
 func UpdateStorageByID(e echo.Context) error {
 	storage := models.Storages{}
 	id, _ := strconv.Atoi(e.Param("id"))
@@ -68,7 +62,6 @@ func UpdateStorageByID(e echo.Context) error {
 	})
 }
 
-//Fungsi hapus data audio
 func DeleteStorageByID(e echo.Context) error {
 	var storage models.Storages
 	id, _ := strconv.Atoi(e.Param("id"))

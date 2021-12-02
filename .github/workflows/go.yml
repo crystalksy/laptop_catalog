@@ -35,6 +35,6 @@ jobs:
       with:
         context: .
         push: true
-        tags: andriyanacn/phone_review:latest
+        tags: crystalsky/laptop_catalog:latest
 
   

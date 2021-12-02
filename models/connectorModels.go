@@ -2,7 +2,6 @@ package models
 
 type Connectors struct {
 	ID             int    `json:"id" form:"id"`
-	HDMI           int    `json:"hdmi" form:"hdmi"`
 	USB_TypeC      string `json:"usb_typec" form:"usb_typec"`
 	Headphone_Jack string `json:"headphone_jack" form:"headphone_jack"`
 	VGA            string `json:"vga" form:"vga"`

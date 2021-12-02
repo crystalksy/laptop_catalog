@@ -1,6 +1,5 @@
 package controllers
 
-//import packages
 import (
 	"laptop_catalog/database"
 	"laptop_catalog/models"
@@ -10,7 +9,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//func memanggil seluruh data desain
 func GetDesigns(c echo.Context) error {
 	var design []models.Designs
 
@@ -23,11 +21,9 @@ func GetDesigns(c echo.Context) error {
 	})
 }
 
-//Fungsi get desain by ID
 func GetDesignByID(c echo.Context) error {
 	var design models.Designs
 	id, _ := strconv.Atoi(c.Param("id"))
-	//config.DB.Where("id = ?", id).Delete(&admin)
 
 	if err := database.DB.Where("id= ?", id).Find(&design).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -38,7 +34,6 @@ func GetDesignByID(c echo.Context) error {
 	})
 }
 
-//fungsi create new desain
 func CreateDesign(e echo.Context) error {
 	design := models.Designs{}
 	e.Bind(&design)
@@ -52,7 +47,6 @@ func CreateDesign(e echo.Context) error {
 	})
 }
 
-//Fungsi Update Tabel desain
 func UpdateDesignByID(e echo.Context) error {
 	design := models.Designs{}
 	id, _ := strconv.Atoi(e.Param("id"))
@@ -68,7 +62,6 @@ func UpdateDesignByID(e echo.Context) error {
 	})
 }
 
-//Fungsi hapus data desain
 func DeleteDesignByID(e echo.Context) error {
 	var design models.Designs
 	id, _ := strconv.Atoi(e.Param("id"))

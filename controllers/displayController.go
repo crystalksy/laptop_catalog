@@ -1,6 +1,5 @@
 package controllers
 
-//import packages
 import (
 	"laptop_catalog/database"
 	"laptop_catalog/models"
@@ -10,7 +9,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//func memanggil seluruh data displays
 func GetDisplays(c echo.Context) error {
 	var display []models.Displays
 
@@ -23,11 +21,9 @@ func GetDisplays(c echo.Context) error {
 	})
 }
 
-//Fungsi get displaysby ID
 func GetDisplayByID(c echo.Context) error {
 	var display models.Displays
 	id, _ := strconv.Atoi(c.Param("id"))
-	//config.DB.Where("id = ?", id).Delete(&admin)
 
 	if err := database.DB.Where("id= ?", id).Find(&display).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -38,7 +34,6 @@ func GetDisplayByID(c echo.Context) error {
 	})
 }
 
-//fungsi create new displays
 func CreateDisplay(e echo.Context) error {
 	display := models.Displays{}
 	e.Bind(&display)
@@ -52,7 +47,6 @@ func CreateDisplay(e echo.Context) error {
 	})
 }
 
-//Fungsi Update Tabel Displays
 func UpdateDisplayByID(e echo.Context) error {
 	display := models.Displays{}
 	id, _ := strconv.Atoi(e.Param("id"))
@@ -68,7 +62,6 @@ func UpdateDisplayByID(e echo.Context) error {
 	})
 }
 
-//Fungsi hapus data displays
 func DeleteDisplayByID(e echo.Context) error {
 	var display models.Displays
 	id, _ := strconv.Atoi(e.Param("id"))

@@ -7,7 +7,7 @@ import (
 
 //MAIN FUNCTION
 func main() {
-	database.InitDB()
+	database.InitDB("laptop_catalog")
 	e := route.New()
 	e.Start(":8080")
 }

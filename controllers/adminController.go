@@ -1,6 +1,5 @@
 package controllers
 
-//import packages
 import (
 	"laptop_catalog/database"
 	"laptop_catalog/middleware"
@@ -11,7 +10,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//func memanggil seluruh data admin
 func GetAdminsController(c echo.Context) error {
 	var admins []models.Admins
 
@@ -24,7 +22,6 @@ func GetAdminsController(c echo.Context) error {
 	})
 }
 
-//Fungsi get admin by ID
 func GetAdminByID(c echo.Context) error {
 	var admins models.Admins
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -39,7 +36,6 @@ func GetAdminByID(c echo.Context) error {
 	})
 }
 
-//fungsi create new admins
 func CreateAdminController(e echo.Context) error {
 	admin := models.Admins{}
 	e.Bind(&admin)
@@ -55,9 +51,11 @@ func CreateAdminController(e echo.Context) error {
 
 func UpdateAdminByID(e echo.Context) error {
 	admin := models.Admins{}
+	id, _ := strconv.Atoi(e.Param("id"))
 	e.Bind(&admin)
+	admin.ID = id
 
-	if err := database.DB.Updates(&admin).Where("id= ?", admin.ID).Error; err != nil {
+	if err := database.DB.Where("id= ?", admin.ID).Updates(&admin).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return e.JSON(http.StatusOK, map[string]interface{}{
@@ -66,7 +64,6 @@ func UpdateAdminByID(e echo.Context) error {
 	})
 }
 
-//Fungsi hapus data admin
 func DeleteAdminByID(e echo.Context) error {
 	var admin models.Admins
 	id, _ := strconv.Atoi(e.Param("id"))
@@ -79,7 +76,6 @@ func DeleteAdminByID(e echo.Context) error {
 func LoginAdminController(e echo.Context) error {
 	admin := models.Admins{}
 	e.Bind(&admin)
-
 	err := database.DB.Where("email = ? AND password = ?", admin.Email, admin.Password).First(&admin).Error
 	if err != nil {
 		return e.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -87,6 +83,7 @@ func LoginAdminController(e echo.Context) error {
 			"error":   err.Error(),
 		})
 	}
+
 	token, err := middleware.CreateToken(admin.ID, admin.Name)
 	if err != nil {
 		return e.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -95,11 +92,8 @@ func LoginAdminController(e echo.Context) error {
 		})
 	}
 
-	//adminRes := db.AdminRes{admin.ID, admin.Name, admin.Email, token}
-
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success get all users",
 		"token":   token,
-		//"user":    adminRes,
 	})
 }
